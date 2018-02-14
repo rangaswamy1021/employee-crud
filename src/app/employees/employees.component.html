@@ -1,0 +1,155 @@
+<div class="row page-titles">
+  <div class="col-md-6 col-8 align-self-center">
+    <h3 class="text-themecolor m-b-0 m-t-0">Employess</h3>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="javascript:void(0)">Home</a>
+      </li>
+      <li class="breadcrumb-item active">Employess</li>
+    </ol>
+  </div>
+  <div class="col-md-6 col-4 align-self-center">
+    <a class="btn pull-right hidden-sm-down btn-success" 
+    (click)="newEmployeeButton()"> New Employee </a>
+  </div>
+</div>
+
+<div class="row" *ngIf="newEmpForm" >
+  <div class="col-lg-8 col-xlg-9 col-md-7">
+    <div class="card">
+      <div class="card-block">
+        <form class="form-horizontal form-material" name="empForm" [formGroup]="empForm" >
+          <div class="form-group">
+            <div class="col-md-12">
+              <input type="text" formControlName="fName" placeholder="First Name" class="form-control form-control-line">
+              <span class="text-danger" *ngIf="empForm.controls['fName'].invalid && empForm.controls['fName'].touched">
+                First Name is required</span>
+              <!-- <span> First Name is required </span> -->
+              <!-- <div *ngIf="empForm.controls.firstName.touched">
+                <div class="" *ngIf="empForm.controls.firstName.required">
+                  First Name is required
+                </div>
+                <div *ngIf="vepForm.controls['amount'].errors.pattern">
+                  Enter valid Amount format
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12">
+              <input type="text" formControlName="lastName" placeholder="Last Name" class="form-control form-control-line">
+              <div class="text-danger" *ngIf="empForm.controls['lastName'].invalid && empForm.controls['lastName'].touched">
+                Last Name is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-12">
+              <input type="text" formControlName="jobTitleName" placeholder="Job Title Name" class="form-control form-control-line">
+              <div class="text-danger" *ngIf="empForm.controls['jobTitleName'].invalid && (empForm.controls['jobTitleName'].dirty || empForm.controls['jobTitleName']).touched">
+        
+                Job Title Name is required
+              </div>
+            </div>
+          </div>
+
+       
+
+          <div class="form-group">
+            <div class="col-md-12">
+              <input type="text" formControlName="phoneNumber" placeholder="Phone Number" class="form-control form-control-line">
+              <div class="text-danger" *ngIf="empForm.controls['phoneNumber'].invalid && (empForm.controls['phoneNumber'].dirty || empForm.controls['phoneNumber']).touched">
+                <div class="" *ngIf="empForm.controls['phoneNumber'].required">
+                    Phone Number is required
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-12">
+              <input type="text" formControlName="emailAddress" placeholder="Email Address" class="form-control form-control-line">
+              <div class="text-danger" *ngIf="empForm.controls['emailAddress'].invalid && (empForm.controls['emailAddress'].dirty || empForm.controls['emailAddress']).touched">
+                Email Address is required 
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-md-12">
+              <input type="text" formControlName="employeeCode" placeholder="Employee Code" class="form-control form-control-line">
+              <div class="text-danger" *ngIf="empForm.controls['employeeCode'].invalid && (empForm.controls['employeeCode'].dirty || empForm.controls['employeeCode']).touched">
+                Employee Code is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-12">
+              <button class="btn btn-primary" (click)="addEmployee()" [disabled]="empForm.invalid || empForm.pending" > ADD </button>
+              <button class="btn btn-success" (click)="updateEmployee(empForm.value)"> UPDATE </button>
+              <button class="btn btn-danger" (click)="cancelbtn()"> CANCEL </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <!-- column -->
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title">Basic Table</h4>
+        <h6 class="card-subtitle">Add class
+          <code>.table</code>
+        </h6>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Employee Code</th>
+                <th>Job Title Name</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr *ngFor="let employee of employees; let i=index;">
+                
+                <td>  {{i + 1}} </td>
+                <td><a [routerLink]="['/employees', employee.id]">{{employee.firstName}}</a></td>
+                <td>{{employee.lastName }}</td>
+                <td>{{employee.emailAddress }}</td>
+                <td>{{employee.phoneNumber }}</td>
+                <td>{{employee.employeeCode }}</td>
+                <td>{{employee.jobTitleName}}</td>
+                <td style="cursor:pointer">
+                    <i class="fa fa-edit" (click)="updateEmployee1(employee)"></i>
+                </td>
+                <td style="cursor:pointer">
+                    <i class="fa fa-times" (click)="empDelete(employee.id)"> </i> 
+                </td>
+              </tr>
+           
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
